@@ -1,4 +1,4 @@
-package gedisraft
+package cache
 
 import (
 	"strconv"

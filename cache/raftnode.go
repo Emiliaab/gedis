@@ -1,9 +1,8 @@
-package gedisraft
+package cache
 
 import (
 	"errors"
 	"fmt"
-	"github.com/Emiliaab/gedis/cache"
 	"github.com/hashicorp/raft"
 	raftboltdb "github.com/hashicorp/raft-boltdb"
 	"io/ioutil"
@@ -33,7 +32,7 @@ func newRaftTransport(opts *Options) (*raft.NetworkTransport, error) {
 	return transport, nil
 }
 
-func NewRaftNode(opts *Options, proxy *cache.Cache_proxy) (*RaftNodeInfo, error) {
+func NewRaftNode(opts *Options, proxy *Cache_proxy) (*RaftNodeInfo, error) {
 	raftConfig := raft.DefaultConfig()
 	raftConfig.LocalID = raft.ServerID(opts.raftTCPAddress)
 	raftConfig.SnapshotInterval = 20 * time.Second
@@ -73,6 +72,8 @@ func NewRaftNode(opts *Options, proxy *cache.Cache_proxy) (*RaftNodeInfo, error)
 	if err != nil {
 		return nil, err
 	}
+
+	fmt.Println(opts)
 
 	if opts.bootstrap {
 		configuration := raft.Configuration{

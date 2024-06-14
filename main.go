@@ -3,7 +3,6 @@ package main
 import (
 	"fmt"
 	"github.com/Emiliaab/gedis/cache"
-	"github.com/Emiliaab/gedis/gedisraft"
 	"log"
 	"net"
 	"net/http"
@@ -14,11 +13,11 @@ import (
 func main() {
 	config := cache.NewConfig()
 
-	proxy := cache.NewCacheProxy(config.HttpPort, config.RaftPort, config.NodeName, config.Boostrap, config.JoinAddress)
+	proxy := cache.NewCacheProxy(config.HttpPort, config.RaftPort, config.NodeName, config.Bootstrap, config.JoinAddress)
 
 	var l net.Listener
 	var err error
-	httpAddr := "127.0.0.1" + strconv.Itoa(int(config.HttpPort))
+	httpAddr := "127.0.0.1:" + strconv.Itoa(int(config.HttpPort))
 	logger := log.New(os.Stderr, "httpserver: ", log.Ldate|log.Ltime)
 	l, err = net.Listen("tcp", httpAddr)
 	if err != nil {
@@ -32,7 +31,7 @@ func main() {
 	}()
 
 	if config.JoinAddress != "" {
-		err = gedisraft.JoinRaftCluster(proxy.Opts)
+		err = cache.JoinRaftCluster(proxy.Opts)
 		if err != nil {
 			logger.Fatal(fmt.Sprintf("join raft cluster failed:%v", err))
 		}
