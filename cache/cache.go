@@ -55,7 +55,7 @@ func (c *Cache) Remove(key string) (ok bool) {
 		ok = false
 	}
 
-	return
+	return c.Remove(key)
 }
 
 func (c *Cache) Marshal() ([]byte, error) {

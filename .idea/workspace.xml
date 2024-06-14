@@ -30,6 +30,8 @@
       <change afterPath="$PROJECT_DIR$/node3/snapshots/2-5-1718375735581/meta.json" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/node3/snapshots/2-5-1718375735581/state.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/cache.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lru-k/lru-k.go" beforeDir="false" afterPath="$PROJECT_DIR$/lru-k/lru-k.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,7 +76,7 @@
     "node.js.selected.package.eslint": "(autodetect)"
   }
 }]]></component>
-  <component name="RunManager" selected="Go Build.slave node2">
+  <component name="RunManager" selected="Go Test.TestHashing in github.com/Emiliaab/gedis/consistenthash">
     <configuration name="master node" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="gedis" />
       <working_directory value="$PROJECT_DIR$" />
@@ -105,11 +107,29 @@
       <filePath value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestHashing in github.com/Emiliaab/gedis/consistenthash" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="gedis" />
+      <working_directory value="$PROJECT_DIR$/consistenthash" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Emiliaab/gedis/consistenthash" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestHashing\E$" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Go Build.slave node2" />
       <item itemvalue="Go Build.slave node1" />
       <item itemvalue="Go Build.master node" />
+      <item itemvalue="Go Test.TestHashing in github.com/Emiliaab/gedis/consistenthash" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Test.TestHashing in github.com/Emiliaab/gedis/consistenthash" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">

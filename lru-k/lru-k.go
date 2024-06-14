@@ -9,6 +9,7 @@ type Cache interface {
 	Get(k string) (v gValue, ok bool)
 	Set(k string, v gValue)
 	Len() int
+	Remove(k string) (ok bool)
 	RemoveOldest()
 	Clear()
 	BytesUsed() int64
@@ -140,6 +141,36 @@ func (c *cache) Set(k string, v gValue) {
 	if c.maxBytes != 0 && c.maxBytes < c.nbytes {
 		c.RemoveOldest()
 	}
+}
+
+func (c *cache) Remove(k string) (ok bool) {
+	if c.isNil() {
+		return
+	}
+
+	// 尝试从非活跃列表中移除
+	if elem, found := c.inactiveMap[k]; found {
+		entry := c.inactiveList.Remove(elem).(*Entry)
+		delete(c.inactiveMap, entry.k)
+		c.nbytes -= int64(entry.v.Len()) + int64(len(entry.k))
+		if c.onEliminate != nil {
+			c.onEliminate(entry.k, entry.v)
+		}
+		return true
+	}
+
+	// 尝试从活跃列表中移除
+	if elem, found := c.activeMap[k]; found {
+		entry := c.activeList.Remove(elem).(*Entry)
+		delete(c.activeMap, entry.k)
+		c.nbytes -= int64(entry.v.Len()) + int64(len(entry.k))
+		if c.onEliminate != nil {
+			c.onEliminate(entry.k, entry.v)
+		}
+		return true
+	}
+
+	return false
 }
 
 func (c *cache) RemoveOldest() {
