@@ -9,7 +9,7 @@ type Config struct {
 	HttpPort    int32
 	RaftPort    int32
 	NodeName    string
-	Boostrap    bool
+	Bootstrap   bool
 	JoinAddress string
 }
 
@@ -20,8 +20,8 @@ func NewConfig() *Config {
 	var httpPort = flag.Int("httpport", 8000, "http tcp address port")
 	var raftPort = flag.Int("raftport", 9000, "gedisraft tcp address port")
 	var nodeName = flag.String("node", "default", "node name")
-	var boostrap = flag.Bool("bootsrap", false, "boostrap")
-	var joinAddress = flag.String("joinaddr", "127.0.0.1:8000", "join addr")
+	var bootstrap = flag.Bool("bootstrap", false, "boostrap")
+	var joinAddress = flag.String("joinaddr", "", "join addr")
 
 	flag.Parse()
 	//nodes, err := strconv.Atoi(*raftNodes)
@@ -31,7 +31,7 @@ func NewConfig() *Config {
 	//config.raftNodes = int32(nodes)
 	config.HttpPort = int32(*httpPort)
 	config.RaftPort = int32(*raftPort)
-	config.Boostrap = *boostrap
+	config.Bootstrap = *bootstrap
 	config.NodeName = *nodeName
 	config.JoinAddress = *joinAddress
 	return config

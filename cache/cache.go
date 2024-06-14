@@ -1,6 +1,8 @@
 package cache
 
 import (
+	"container/list"
+	"encoding/json"
 	lru_k "github.com/Emiliaab/gedis/lru-k"
 	"io"
 	"sync"
@@ -10,7 +12,7 @@ import (
 *
 cache代理，封装lru kv并提供并发控制
 */
-type cache struct {
+type Cache struct {
 	mutex sync.Mutex
 	lru   lru_k.Cache
 }
@@ -19,7 +21,7 @@ const (
 	maxitems = 10
 )
 
-func (c *cache) Add(key string, value []byte) {
+func (c *Cache) Add(key string, value []byte) {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
 
@@ -33,7 +35,7 @@ func (c *cache) Add(key string, value []byte) {
 	c.lru.Set(key, &gvalue{bytes: value})
 }
 
-func (c *cache) Get(key string) (value []byte, ok bool) {
+func (c *Cache) Get(key string) (value []byte, ok bool) {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
 
@@ -45,7 +47,7 @@ func (c *cache) Get(key string) (value []byte, ok bool) {
 	return
 }
 
-func (c *cache) Remove(key string) (ok bool) {
+func (c *Cache) Remove(key string) (ok bool) {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
 
@@ -56,20 +58,23 @@ func (c *cache) Remove(key string) (ok bool) {
 	return
 }
 
-func (c *cache) Marshal() ([]byte, error) {
+func (c *Cache) Marshal() ([]byte, error) {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
-	// TODO 序列化所有数据
-	return nil, nil
+	dataBytes, err := json.Marshal(c.lru.GetData())
+	return dataBytes, err
 }
 
-func (c *cache) UnMarshal(serialized io.ReadCloser) error {
+func (c *Cache) UnMarshal(serialized io.ReadCloser) error {
 	//var newData map[string]string
-	// TODO 反序列化
-	//newData = nil
+	var newData map[string]*list.Element
+	if err := json.NewDecoder(serialized).Decode(&newData); err != nil {
+		return err
+	}
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
 
+	c.lru.SetData(newData)
 	return nil
 }
 

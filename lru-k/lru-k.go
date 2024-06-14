@@ -12,6 +12,8 @@ type Cache interface {
 	RemoveOldest()
 	Clear()
 	BytesUsed() int64
+	GetData() map[string]*list.Element
+	SetData(map[string]*list.Element)
 }
 
 type cache struct {
@@ -199,4 +201,12 @@ func (c *cache) isNil() bool {
 
 func (c *cache) BytesUsed() int64 {
 	return c.nbytes
+}
+
+func (c *cache) GetData() map[string]*list.Element {
+	return c.activeMap
+}
+
+func (c *cache) SetData(data map[string]*list.Element) {
+	c.activeMap = data
 }

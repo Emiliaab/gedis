@@ -2,7 +2,6 @@ package cache
 
 import (
 	"encoding/json"
-	"github.com/Emiliaab/gedis/gedisraft"
 	"github.com/hashicorp/raft"
 	"log"
 	"os"
@@ -16,25 +15,25 @@ const (
 )
 
 type Cache_proxy struct {
-	Opts        *gedisraft.Options
+	Opts        *Options
 	Log         *log.Logger
-	Cache       cache
-	Raft        *gedisraft.RaftNodeInfo
+	Cache       Cache
+	Raft        *RaftNodeInfo
 	enableWrite int32
 }
 
 func NewCacheProxy(httpPort int32, raftPort int32, node string, bootstrap bool, joinAddress string) *Cache_proxy {
 	proxy := &Cache_proxy{}
-	opts := gedisraft.NewOptions(httpPort, raftPort, node, bootstrap, joinAddress)
+	opts := NewOptions(httpPort, raftPort, node, bootstrap, joinAddress)
 	log := log.New(os.Stderr, "Cache_proxy: ", log.Ldate|log.Ltime)
-	raftNode, err := gedisraft.NewRaftNode(opts, proxy)
+	raftNode, err := NewRaftNode(opts, proxy)
 	if err != nil {
 		log.Fatal("gedisraft create error!")
 	}
 	proxy.Opts = opts
 	proxy.Log = log
 	proxy.Raft = raftNode
-	proxy.Cache = cache{}
+	proxy.Cache = Cache{}
 	proxy.enableWrite = ENABLE_WRITE_FALSE
 
 	return proxy
@@ -72,7 +71,7 @@ func (c *Cache_proxy) DoSet(oper int8, key string, value string) bool {
 		log.Println("doSet() error, get nil key or nil value")
 		return false
 	}
-	event := gedisraft.LogEntryData{Oper: oper, Key: key, Value: value}
+	event := LogEntryData{Oper: oper, Key: key, Value: value}
 	eventBytes, err := json.Marshal(event)
 	if err != nil {
 		c.Log.Printf("json.Marshal failed, err:%v", err)

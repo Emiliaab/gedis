@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/Emiliaab/gedis/cache"
-	"github.com/Emiliaab/gedis/gedisraft"
 	"github.com/hashicorp/raft"
 	"log"
 	"net/http"
@@ -68,7 +67,7 @@ func (h *httpServer) doSet(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	event := gedisraft.LogEntryData{Oper: oper, Key: key, Value: value}
+	event := cache.LogEntryData{Oper: oper, Key: key, Value: value}
 	eventBytes, err := json.Marshal(event)
 	if err != nil {
 		h.log.Printf("json.Marshal failed, err:%v", err)
@@ -95,6 +94,9 @@ func (h *httpServer) doJoin(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "invalid peerAddress\n")
 		return
 	}
+
+	fmt.Println("=======")
+	fmt.Println(peerAddress)
 	addPeerFuture := h.cache.Raft.Raft.AddVoter(raft.ServerID(peerAddress), raft.ServerAddress(peerAddress), 0, 0)
 	if err := addPeerFuture.Error(); err != nil {
 		h.log.Printf("Error joining peer to raft, peeraddress:%s, err:%v, code:%d", peerAddress, err, http.StatusInternalServerError)

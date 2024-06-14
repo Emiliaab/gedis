@@ -1,12 +1,11 @@
-package gedisraft
+package cache
 
 import (
-	"github.com/Emiliaab/gedis/cache"
 	"github.com/hashicorp/raft"
 )
 
 type snapshot struct {
-	proxy *cache.Cache_proxy
+	proxy *Cache_proxy
 }
 
 func (s *snapshot) Persist(sink raft.SnapshotSink) error {

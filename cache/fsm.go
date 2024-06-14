@@ -1,15 +1,14 @@
-package gedisraft
+package cache
 
 import (
 	"encoding/json"
-	"github.com/Emiliaab/gedis/cache"
 	"github.com/hashicorp/raft"
 	"io"
 	"log"
 )
 
 type FSM struct {
-	proxy *cache.Cache_proxy
+	proxy *Cache_proxy
 	log   *log.Logger
 }
 
