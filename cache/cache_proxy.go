@@ -2,9 +2,12 @@ package cache
 
 import (
 	"encoding/json"
+	"fmt"
 	"github.com/Emiliaab/gedis/consistenthash"
 	"github.com/hashicorp/raft"
+	"io"
 	"log"
+	"net/http"
 	"os"
 	"strconv"
 	"sync/atomic"
@@ -58,7 +61,41 @@ func (c *Cache_proxy) DoGet(key string) ([]byte, bool) {
 	}
 
 	value, ok := c.Cache.Get(key)
+	// 如果本地缓存没有，用一致性hash算法去别的节点找
+	if !ok {
+		peerAddress := c.Peers.Get(key)
+		if peerAddress == c.Opts.HttpAddress {
+			log.Println("doGet() error, get false ok")
+			return nil, false
+		}
+		// 从别的节点获取数据
+		ret, err := GetFromPeer(peerAddress, key)
+		if err != nil {
+			log.Printf("GetFromPeer failed, err:%v", err)
+			return nil, false
+		}
+		return ret, true
+
+	}
 	return value, ok
+}
+
+func GetFromPeer(address string, key string) (res []byte, err error) {
+	url := "http://" + address + "/get?key=" + key
+	resp, err := http.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, err
+	}
+	res, err = io.ReadAll(resp.Body)
+	if err != nil {
+		return nil, fmt.Errorf("read response body failed, err:%v", err)
+	}
+	return res, nil
 }
 
 func (c *Cache_proxy) SetWriteFlag(flag bool) {

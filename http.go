@@ -12,7 +12,6 @@ import (
 	"net/http"
 	"os"
 	"strconv"
-	"time"
 )
 
 type httpServer struct {
@@ -77,15 +76,41 @@ func (h *httpServer) doSet(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "internal error\n")
 		return
 	}
-
-	applyFuture := h.cache.Raft.Raft.Apply(eventBytes, 5*time.Second)
-	if err := applyFuture.Error(); err != nil {
-		h.log.Printf("raft.Apply failed:%v", err)
-		fmt.Fprint(w, "internal error\n")
-		return
+	// 通过一致性hash找到应该写入的节点
+	// 如果是本机，则利用raft协议直接写入, 如果不是本机，则通过http协议写入
+	peerAddress := h.cache.Peers.Get(key)
+	if peerAddress == h.cache.Opts.HttpAddress {
+		applyFuture := h.cache.Raft.Raft.Apply(eventBytes, 5)
+		if err := applyFuture.Error(); err != nil {
+			h.log.Printf("raft.Apply failed:%v", err)
+			fmt.Fprint(w, "internal error\n")
+			return
+		}
+	} else {
+		if !doSetFromPeer(peerAddress, key, value, oper) {
+			h.log.Println("doSetFromPeer failed")
+			fmt.Fprint(w, "internal error\n")
+			return
+		}
 	}
 
 	fmt.Fprintf(w, "ok\n")
+}
+
+// 非本机节点，通过http协议写入
+func doSetFromPeer(peerAddress string, key string, value string, oper int8) bool {
+	url := "http://" + peerAddress + "/set?oper=" + strconv.Itoa(int(oper)) + "&key=" + key + "&value=" + value
+	resp, err := http.Post(url, "application/json", nil)
+	if err != nil {
+		return false
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return false
+	}
+
+	return true
 }
 
 func (h *httpServer) doJoin(w http.ResponseWriter, r *http.Request) {
