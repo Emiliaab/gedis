@@ -2,9 +2,11 @@ package cache
 
 import (
 	"encoding/json"
+	"github.com/Emiliaab/gedis/consistenthash"
 	"github.com/hashicorp/raft"
 	"log"
 	"os"
+	"strconv"
 	"sync/atomic"
 	"time"
 )
@@ -19,6 +21,7 @@ type Cache_proxy struct {
 	Log         *log.Logger
 	Cache       Cache
 	Raft        *RaftNodeInfo
+	Peers       *consistenthash.Map
 	enableWrite int32
 }
 
@@ -35,6 +38,11 @@ func NewCacheProxy(httpPort int32, raftPort int32, node string, bootstrap bool, 
 	proxy.Raft = raftNode
 	proxy.Cache = Cache{}
 	proxy.enableWrite = ENABLE_WRITE_FALSE
+	proxy.Peers = consistenthash.New(3, func(key []byte) uint32 {
+		i, _ := strconv.Atoi(string(key))
+		return uint32(i)
+	})
+	proxy.Peers.Add(proxy.Opts.HttpAddress)
 
 	return proxy
 }

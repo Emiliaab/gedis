@@ -1,10 +1,13 @@
 package main
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"github.com/Emiliaab/gedis/cache"
+	"github.com/Emiliaab/gedis/consistenthash"
 	"github.com/hashicorp/raft"
+	"io/ioutil"
 	"log"
 	"net/http"
 	"os"
@@ -104,4 +107,73 @@ func (h *httpServer) doJoin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	fmt.Fprint(w, "ok")
+}
+
+func (h *httpServer) sharePeers(w http.ResponseWriter, r *http.Request) {
+	vars := r.URL.Query()
+
+	dest := vars.Get("dest")
+	if dest == "" {
+		h.log.Println("invalid dest")
+		fmt.Fprint(w, "invalid dest\n")
+		return
+	}
+
+	url := fmt.Sprintf("http://%s/sendpeers", dest)
+	data, err := json.Marshal(*(h.cache.Peers))
+	if err != nil {
+		h.log.Println("peers json error!")
+		fmt.Fprint(w, "peers json error!\n")
+		return
+	}
+
+	resp, err := http.Post(url, "application/json", bytes.NewBuffer(data))
+	if err != nil {
+		h.log.Println("send peers error!")
+		fmt.Fprint(w, "send peers error!\n")
+		return
+	}
+	defer resp.Body.Close()
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		h.log.Println("send peers get resp error!")
+		fmt.Fprint(w, "send peers get resp error!\n")
+		return
+	}
+
+	if string(body) != "ok" {
+		h.log.Println("send peers get code error!")
+		fmt.Fprint(w, "send peers get code error!\n")
+		return
+	}
+}
+
+func (h *httpServer) sendPeers(w http.ResponseWriter, r *http.Request) {
+	var data consistenthash.Map
+	err := json.NewDecoder(r.Body).Decode(&data)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
+	//h.pool.mu.Lock()
+	//defer h.pool.mu.Unlock()
+
+	// TODO peers中加入自己，并向peers中其他节点都通知加入自己
+
+	// 更新 peers 变量
+	h.pool.peers = &data
+
+	// 返回响应
+	w.WriteHeader(http.StatusOK)
+	fmt.Fprint(w, "Peers updated successfully")
+	log.Println(data)
+}
+
+func (h *httpServer) addPeer(w http.ResponseWriter, r *http.Request) {
+	vars := r.URL.Query()
+
+	peer := vars.Get("peer")
+
 }

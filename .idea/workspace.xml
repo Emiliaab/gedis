@@ -4,63 +4,28 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3608c7a6-ef28-4c26-9969-810f5a467304" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/consistenthash/consistenthash.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/consistenthash/consistenthash_test.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/default/gedisraft-log.bolt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/default/gedisraft-log.bolt.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/default/gedisraft-stable.bolt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/default/gedisraft-stable.bolt.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node1/gedisraft-log.bolt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node1/gedisraft-log.bolt.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node1/gedisraft-stable.bolt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node1/gedisraft-stable.bolt.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node1/snapshots/2-5-1718375741382/meta.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node1/snapshots/2-5-1718375741382/state.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node2/gedisraft-log.bolt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node2/gedisraft-log.bolt.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node2/gedisraft-stable.bolt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node2/gedisraft-stable.bolt.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node2/snapshots/2-5-1718375730708/meta.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node2/snapshots/2-5-1718375730708/state.bin" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node3/gedisraft-log.bolt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node3/gedisraft-log.bolt.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node3/gedisraft-stable.bolt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node3/gedisraft-stable.bolt.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node3/snapshots/2-5-1718375735581/meta.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/node3/snapshots/2-5-1718375735581/state.bin" afterDir="false" />
+    <list default="true" id="f95d0676-d806-4120-9d19-3142d60ecbea" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/cache.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lru-k/lru-k.go" beforeDir="false" afterPath="$PROJECT_DIR$/lru-k/lru-k.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml.bak" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/options.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/options.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/http.go" beforeDir="false" afterPath="$PROJECT_DIR$/http.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Go File" />
-      </list>
-    </option>
-  </component>
   <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../Golang" />
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectId" id="2hrTR9iWRrj7HWwk6UxLpN7AVCY" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="2htljnwiP94H1lw979lovD0tdK8" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
-    "ASKED_ADD_EXTERNAL_FILES": "true",
-    "DefaultGoTemplateProperty": "Go File",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
@@ -68,93 +33,18 @@
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
     "RunOnceActivity.go.vendoring.notification.had.been.shown": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "conhash",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "D:/app/projects/go/cb-cache",
+    "last_opened_file_path": "C:/Users/cuixu",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)"
   }
 }]]></component>
-  <component name="RunManager" selected="Go Test.TestHashing in github.com/Emiliaab/gedis/consistenthash">
-    <configuration name="master node" type="GoApplicationRunConfiguration" factoryName="Go Application">
-      <module name="gedis" />
-      <working_directory value="$PROJECT_DIR$" />
-      <parameters value="-httpport 8870 -raftport 9440 -node node1 -bootstrap true" />
-      <kind value="PACKAGE" />
-      <package value="github.com/Emiliaab/gedis" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="slave node1" type="GoApplicationRunConfiguration" factoryName="Go Application">
-      <module name="gedis" />
-      <working_directory value="$PROJECT_DIR$" />
-      <parameters value="-httpport 8871 -raftport 9441 -node node2 -joinaddr 127.0.0.1:8870" />
-      <kind value="PACKAGE" />
-      <package value="github.com/Emiliaab/gedis" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="slave node2" type="GoApplicationRunConfiguration" factoryName="Go Application">
-      <module name="gedis" />
-      <working_directory value="$PROJECT_DIR$" />
-      <parameters value="-httpport 8872 -raftport 9442 -node node3 -joinaddr 127.0.0.1:8870" />
-      <kind value="PACKAGE" />
-      <package value="github.com/Emiliaab/gedis" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <method v="2" />
-    </configuration>
-    <configuration name="TestHashing in github.com/Emiliaab/gedis/consistenthash" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="gedis" />
-      <working_directory value="$PROJECT_DIR$/consistenthash" />
-      <root_directory value="$PROJECT_DIR$" />
-      <kind value="PACKAGE" />
-      <package value="github.com/Emiliaab/gedis/consistenthash" />
-      <directory value="$PROJECT_DIR$" />
-      <filePath value="$PROJECT_DIR$" />
-      <framework value="gotest" />
-      <pattern value="^\QTestHashing\E$" />
-      <method v="2" />
-    </configuration>
-    <list>
-      <item itemvalue="Go Build.slave node2" />
-      <item itemvalue="Go Build.slave node1" />
-      <item itemvalue="Go Build.master node" />
-      <item itemvalue="Go Test.TestHashing in github.com/Emiliaab/gedis/consistenthash" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Go Test.TestHashing in github.com/Emiliaab/gedis/consistenthash" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
-  <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-  </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/vendor/github.com/hashicorp/raft/tcp_transport.go</url>
-          <line>35</line>
-          <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/cache/config.go</url>
-          <line>20</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>
