@@ -5,11 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="289014e2-8642-4ad6-ae96-c79b6dc5a69a" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/gedis.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/cache/cache_proxy.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/cache_proxy.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/options.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/options.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/consistenthash/consistenthash.go" beforeDir="false" afterPath="$PROJECT_DIR$/consistenthash/consistenthash.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/http.go" beforeDir="false" afterPath="$PROJECT_DIR$/http.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -17,17 +15,17 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../go" />
+  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../Golang" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "customColor": "",
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="2hv6hk1Q5xDk1nLYs7CMduEyYV7" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -40,11 +38,12 @@
     "RunOnceActivity.go.formatter.settings.were.checked": "true",
     "RunOnceActivity.go.migrated.go.modules.settings": "true",
     "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "RunOnceActivity.go.vendoring.notification.had.been.shown": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "conadd",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "C:/Users/Administrator",
+    "last_opened_file_path": "C:/Users/cuixu",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)"
   }

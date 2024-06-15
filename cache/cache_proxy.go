@@ -5,11 +5,11 @@ import (
 	"fmt"
 	"github.com/Emiliaab/gedis/consistenthash"
 	"github.com/hashicorp/raft"
+	"github.com/spaolacci/murmur3"
 	"io"
 	"log"
 	"net/http"
 	"os"
-	"strconv"
 	"sync/atomic"
 	"time"
 )
@@ -42,8 +42,7 @@ func NewCacheProxy(httpPort int32, raftPort int32, node string, bootstrap bool, 
 	proxy.Cache = Cache{}
 	proxy.enableWrite = ENABLE_WRITE_FALSE
 	proxy.Peers = consistenthash.New(3, func(key []byte) uint32 {
-		i, _ := strconv.Atoi(string(key))
-		return uint32(i)
+		return uint32(murmur3.Sum64(key))
 	})
 	proxy.Peers.Add(proxy.Opts.HttpAddress)
 
