@@ -9,10 +9,10 @@ import (
 type Hash func(data []byte) uint32
 
 type Map struct {
-	hash     Hash           // hash函数
-	replicas int            // 虚拟节点倍数
-	keys     []int          // 哈希环
-	hashMap  map[int]string // 虚拟节点和真实节点的映射表，键是虚拟节点的哈希值，值是真实节点的名称
+	hash     Hash           `json:"hash"`     // hash函数
+	replicas int            `json:"replicas"` // 虚拟节点倍数
+	keys     []int          `json:"keys"`     // 哈希环
+	hashMap  map[int]string `json:"hashMap"`  // 虚拟节点和真实节点的映射表，键是虚拟节点的哈希值，值是真实节点的名称
 }
 
 func New(replicas int, fn Hash) *Map {
@@ -50,4 +50,19 @@ func (m *Map) Get(key string) string {
 	})
 	// 如果 idx == len(m.keys)，说明应选择 m.keys[0]，因为 m.keys 是一个环状结构，所以用取余数的方式来处理这种情况。
 	return m.hashMap[m.keys[idx%len(m.keys)]]
+}
+
+func (m *Map) GetPeers() []string {
+	uniqueValues := make(map[string]bool)
+	result := make([]string, 0)
+
+	for _, value := range m.hashMap {
+		// 如果 value 不存在于 set 中,则添加到 set 和结果 map 中
+		if !uniqueValues[value] {
+			uniqueValues[value] = true
+			result = append(result, value)
+		}
+	}
+
+	return result
 }

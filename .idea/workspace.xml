@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f95d0676-d806-4120-9d19-3142d60ecbea" name="Changes" comment="">
+    <list default="true" id="f95d0676-d806-4120-9d19-3142d60ecbea" name="Changes" comment="cxn feat:peers">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml.bak" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/options.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/options.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/consistenthash/consistenthash.go" beforeDir="false" afterPath="$PROJECT_DIR$/consistenthash/consistenthash.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/http.go" beforeDir="false" afterPath="$PROJECT_DIR$/http.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,9 +39,39 @@
     "node.js.selected.package.eslint": "(autodetect)"
   }
 }]]></component>
+  <component name="RunManager" selected="Go Build.master2">
+    <configuration name="master1" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="gedis" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="-httpport 8000 -raftport 9000 -node node1 -bootstrap true" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Emiliaab/gedis" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="master2" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="gedis" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="-httpport 8005 -raftport 9005 -node node5 -bootstrap true" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Emiliaab/gedis" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Go Build.master1" />
+      <item itemvalue="Go Build.master2" />
+    </list>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="cxn feat:peers" />
+    <option name="LAST_COMMIT_MESSAGE" value="cxn feat:peers" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>

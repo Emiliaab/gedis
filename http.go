@@ -32,6 +32,9 @@ func NewHttpServer(cache *cache.Cache_proxy) *httpServer {
 	mutex.HandleFunc("/get", s.doGet)
 	mutex.HandleFunc("/set", s.doSet)
 	mutex.HandleFunc("/join", s.doJoin)
+	mutex.HandleFunc("/sharepeers", s.sharePeers)
+	mutex.HandleFunc("/sendpeers", s.sendPeers)
+	mutex.HandleFunc("/addpeer", s.addPeer)
 
 	return s
 }
@@ -120,6 +123,7 @@ func (h *httpServer) sharePeers(w http.ResponseWriter, r *http.Request) {
 	}
 
 	url := fmt.Sprintf("http://%s/sendpeers", dest)
+	fmt.Println(*(h.cache.Peers))
 	data, err := json.Marshal(*(h.cache.Peers))
 	if err != nil {
 		h.log.Println("peers json error!")
@@ -127,6 +131,8 @@ func (h *httpServer) sharePeers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	fmt.Println("+++++")
+	fmt.Println(data)
 	resp, err := http.Post(url, "application/json", bytes.NewBuffer(data))
 	if err != nil {
 		h.log.Println("send peers error!")
@@ -135,23 +141,24 @@ func (h *httpServer) sharePeers(w http.ResponseWriter, r *http.Request) {
 	}
 	defer resp.Body.Close()
 
-	body, err := ioutil.ReadAll(resp.Body)
+	code, err := ioutil.ReadAll(resp.Body)
 	if err != nil {
 		h.log.Println("send peers get resp error!")
 		fmt.Fprint(w, "send peers get resp error!\n")
 		return
 	}
-
-	if string(body) != "ok" {
-		h.log.Println("send peers get code error!")
-		fmt.Fprint(w, "send peers get code error!\n")
-		return
-	}
+	fmt.Println(code)
+	fmt.Fprintf(w, "%s share to peer %s peers\n", h.cache.Opts.HttpAddress, dest)
 }
 
 func (h *httpServer) sendPeers(w http.ResponseWriter, r *http.Request) {
 	var data consistenthash.Map
+	fmt.Println("{{{{{{{{")
+	fmt.Println(r.Body)
 	err := json.NewDecoder(r.Body).Decode(&data)
+
+	fmt.Println("-----------")
+	fmt.Println(data)
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
@@ -159,21 +166,54 @@ func (h *httpServer) sendPeers(w http.ResponseWriter, r *http.Request) {
 
 	//h.pool.mu.Lock()
 	//defer h.pool.mu.Unlock()
+	// 更新 peers 变量
+	h.cache.Peers = &data
 
 	// TODO peers中加入自己，并向peers中其他节点都通知加入自己
+	h.cache.Peers.Add(h.cache.Opts.HttpAddress)
 
-	// 更新 peers 变量
-	h.pool.peers = &data
+	peerset := h.cache.Peers.GetPeers()
+	for _, peer := range peerset {
+		url := fmt.Sprintf("http://%s/addpeer?peerAddress=%s", peer, h.cache.Opts.HttpAddress)
+
+		resp, err := http.Get(url)
+		fmt.Fprintf(w, "send to peer %s peerAddress %s\n", peer, h.cache.Opts.HttpAddress)
+		if err != nil {
+			h.log.Println("send peers get resp error!")
+			fmt.Fprint(w, "send peers get resp error!\n")
+			return
+		}
+
+		defer resp.Body.Close()
+		body, err := ioutil.ReadAll(resp.Body)
+		if err != nil {
+			h.log.Println("send peers get resp error!")
+			fmt.Fprint(w, "send peers get resp error!\n")
+			return
+		}
+
+		if string(body) != "ok" {
+			http.Error(w, err.Error(), http.StatusBadRequest)
+			return
+		}
+	}
 
 	// 返回响应
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprint(w, "Peers updated successfully")
-	log.Println(data)
+	log.Println(h.cache.Peers.GetPeers())
 }
 
 func (h *httpServer) addPeer(w http.ResponseWriter, r *http.Request) {
 	vars := r.URL.Query()
 
-	peer := vars.Get("peer")
+	peerAddress := vars.Get("peerAddress")
+	if peerAddress == "" {
+		h.log.Println("add peer invalid peerAddress")
+		fmt.Fprint(w, "add peer invalid peerAddress\n")
+		return
+	}
 
+	h.cache.Peers.Add(peerAddress)
+	fmt.Fprintf(w, "%s addPeer %s success!", h.cache.Opts.HttpAddress, peerAddress)
 }
