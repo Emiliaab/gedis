@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/Emiliaab/gedis/consistenthash"
+	"github.com/Emiliaab/gedis/singleflight"
 	"github.com/hashicorp/raft"
 	"github.com/spaolacci/murmur3"
 	"io"
@@ -25,6 +26,7 @@ type Cache_proxy struct {
 	Cache       Cache
 	Raft        *RaftNodeInfo
 	Peers       *consistenthash.Map
+	sfGroup     singleflight.Group
 	enableWrite int32
 }
 
@@ -59,37 +61,40 @@ func (c *Cache_proxy) DoGet(key string, masterAddress string) ([]byte, bool) {
 		return nil, false
 	}
 
+	// 尝试从本地缓存获取数据
 	value, ok := c.Cache.Get(key)
-	// 如果本地缓存没有，先给主节点发请求，然后如果自己就是主节点的话，就用一致性哈希算法找到应该查找的节点
-	if !ok {
-		// 如果masterAddress为空，说明自己就是主节点
+	if ok {
+		return value, true
+	}
+
+	// 使用 singleflight 来保证对于相同的 key 只有一个网络请求被发起
+	result, err := c.sfGroup.Do(key, func() (interface{}, error) {
+		// 确定应该从哪个节点获取数据
 		if masterAddress == "" {
-			// 直接通过一致性hash算法找到应该查找的节点
 			peerAddress := c.Peers.Get(key)
 			if peerAddress == c.Opts.HttpAddress {
-				value, ok = c.Cache.Get(key)
-			} else {
-				res, err := GetFromPeer(peerAddress, key)
-				if err != nil {
-					log.Printf("GetFromPeer failed, err:%v", err)
-					return nil, false
-				}
-				value = res
-				ok = true
+				// 如果哈希算法确定本地是负责节点，说明前面缓存未命中已是正确结果
+				return nil, fmt.Errorf("data not found locally")
 			}
-		} else {
-			res, err := GetFromPeer(masterAddress, key)
-			if err != nil {
-				log.Printf("GetFromPeer failed, err:%v", err)
-				return nil, false
-			}
-			value = res
-			ok = true
-
+			// 从对应的远端节点获取数据
+			return GetFromPeer(peerAddress, key)
 		}
+		// 如果提供了主节点地址，则直接从该地址获取数据
+		return GetFromPeer(masterAddress, key)
+	})
 
+	if err != nil {
+		log.Printf("DoGet singleflight failed, err: %v, shared: %t", err)
+		return nil, false
 	}
-	return value, ok
+
+	// 类型断言以匹配返回类型
+	finalValue, ok := result.([]byte)
+	if !ok {
+		log.Println("DoGet type assertion failed")
+		return nil, false
+	}
+	return finalValue, true
 }
 
 func GetFromPeer(address string, key string) (res []byte, err error) {

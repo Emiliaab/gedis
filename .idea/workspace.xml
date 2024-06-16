@@ -5,19 +5,68 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="289014e2-8642-4ad6-ae96-c79b6dc5a69a" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/singleflight/singleflight.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/singleflight/singleflight_test.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024_6_16_11_16__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Checkout_at_2024_6_16_11_16__Changes_.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_16_10_35__Changes_.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024_6_16_10_35__Changes_.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/cache.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cache/cache_proxy.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/cache_proxy.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/options.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/options.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/raftnode.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/raftnode.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http.go" beforeDir="false" afterPath="$PROJECT_DIR$/http.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/node1/gedisraft-log.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node1/gedisraft-log.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node1/gedisraft-stable.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node1/gedisraft-stable.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node1/snapshots/2-5-1718540328148/meta.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node1/snapshots/2-5-1718540328148/state.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node11/gedisraft-log.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node11/gedisraft-log.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node11/gedisraft-stable.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node11/gedisraft-stable.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node11/snapshots/2-5-1718540328299/meta.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node11/snapshots/2-5-1718540328299/state.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node12/gedisraft-log.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node12/gedisraft-log.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node12/gedisraft-stable.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node12/gedisraft-stable.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node12/snapshots/2-6-1718540334598/meta.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node12/snapshots/2-6-1718540334598/state.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node2/gedisraft-log.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node2/gedisraft-log.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node2/gedisraft-stable.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node2/gedisraft-stable.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node21/gedisraft-log.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node21/gedisraft-log.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node21/gedisraft-stable.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node21/gedisraft-stable.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node22/gedisraft-log.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node22/gedisraft-log.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node22/gedisraft-stable.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node22/gedisraft-stable.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node3/gedisraft-log.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node3/gedisraft-log.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node3/gedisraft-stable.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node3/gedisraft-stable.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node31/gedisraft-log.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node31/gedisraft-log.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node31/gedisraft-stable.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node31/gedisraft-stable.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node32/gedisraft-log.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node32/gedisraft-log.bolt.lock" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node32/gedisraft-stable.bolt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/node32/gedisraft-stable.bolt.lock" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../Golang" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Go File" />
+      </list>
+    </option>
+  </component>
+  <component name="GOROOT" url="file://$PROJECT_DIR$/../../../go" />
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
@@ -38,23 +87,25 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.go.formatter.settings.were.checked": "true",
-    "RunOnceActivity.go.migrated.go.modules.settings": "true",
-    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
-    "RunOnceActivity.go.vendoring.notification.had.been.shown": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "conadd",
-    "go.import.settings.migrated": "true",
-    "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "D:/app/projects/go/gee-cache",
-    "node.js.detected.package.eslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;DefaultGoTemplateProperty&quot;: &quot;Go File&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.formatter.settings.were.checked&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.migrated.go.modules.settings&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.modules.go.list.on.any.changes.was.set&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.go.vendoring.notification.had.been.shown&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;singleflight&quot;,
+    &quot;go.import.settings.migrated&quot;: &quot;true&quot;,
+    &quot;go.sdk.automatically.set&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/app/projects/go/gee-cache&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Go Build.slave node32">
     <configuration name="master node1" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="gedis" />
@@ -146,6 +197,18 @@
       <filePath value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestDo in github.com/Emiliaab/gedis/singleflight" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="gedis" />
+      <working_directory value="$PROJECT_DIR$/singleflight" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Emiliaab/gedis/singleflight" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestDo\E$" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Go Build.master node1" />
       <item itemvalue="Go Build.master node2" />
@@ -156,11 +219,28 @@
       <item itemvalue="Go Build.slave node22" />
       <item itemvalue="Go Build.slave node31" />
       <item itemvalue="Go Build.slave node32" />
+      <item itemvalue="Go Test.TestDo in github.com/Emiliaab/gedis/singleflight" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Test.TestDo in github.com/Emiliaab/gedis/singleflight" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
@@ -168,11 +248,6 @@
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/cache/cache_proxy.go</url>
-          <line>61</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/cache/cache.go</url>
           <line>41</line>
@@ -187,21 +262,6 @@
           <url>file://$PROJECT_DIR$/http.go</url>
           <line>60</line>
           <option name="timeStamp" value="8" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/cache/cache_proxy.go</url>
-          <line>56</line>
-          <option name="timeStamp" value="9" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/cache/cache_proxy.go</url>
-          <line>63</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
-          <url>file://$PROJECT_DIR$/cache/cache_proxy.go</url>
-          <line>67</line>
-          <option name="timeStamp" value="12" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
