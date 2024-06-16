@@ -9,7 +9,7 @@ type Options struct {
 	HttpAddress    string
 	raftTCPAddress string
 	bootstrap      bool
-	joinAddress    string
+	JoinAddress    string
 }
 
 func NewOptions(httpPort int32, raftPort int32, node string, bootstrap bool, joinAddress string) *Options {
@@ -19,6 +19,6 @@ func NewOptions(httpPort int32, raftPort int32, node string, bootstrap bool, joi
 	opts.HttpAddress = "127.0.0.1:" + strconv.Itoa(int(httpPort))
 	opts.bootstrap = bootstrap
 	opts.raftTCPAddress = "127.0.0.1:" + strconv.Itoa(int(raftPort))
-	opts.joinAddress = joinAddress
+	opts.JoinAddress = joinAddress
 	return opts
 }

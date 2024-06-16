@@ -40,7 +40,7 @@ func (c *Cache) Get(key string) (value []byte, ok bool) {
 	defer c.mutex.Unlock()
 
 	if c.lru == nil {
-		value, ok = nil, false
+		return nil, false
 	}
 	gv, ok := c.lru.Get(key)
 	value = gv.(*gvalue).GetBytes()

@@ -5,9 +5,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="289014e2-8642-4ad6-ae96-c79b6dc5a69a" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/cache.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cache/cache_proxy.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/cache_proxy.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cache/options.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/options.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/consistenthash/consistenthash.go" beforeDir="false" afterPath="$PROJECT_DIR$/consistenthash/consistenthash.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/cache/raftnode.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/raftnode.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/http.go" beforeDir="false" afterPath="$PROJECT_DIR$/http.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -17,6 +19,11 @@
   </component>
   <component name="GOROOT" url="file://$PROJECT_DIR$/../../../../Golang" />
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="MarkdownSettingsMigration">
@@ -43,16 +50,160 @@
     "git-widget-placeholder": "conadd",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "C:/Users/cuixu",
+    "last_opened_file_path": "D:/app/projects/go/gee-cache",
     "node.js.detected.package.eslint": "true",
     "node.js.selected.package.eslint": "(autodetect)"
   }
 }]]></component>
+  <component name="RunManager" selected="Go Build.slave node32">
+    <configuration name="master node1" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="gedis" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="-httpport 8001 -raftport 9001 -node node1 -bootstrap true" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Emiliaab/gedis" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="master node2" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="gedis" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="-httpport 8002 -raftport 9002 -node node2 -bootstrap true" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Emiliaab/gedis" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="master node3" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="gedis" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="-httpport 8003 -raftport 9003 -node node3 -bootstrap true" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Emiliaab/gedis" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="slave node11" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="gedis" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="-httpport 8004 -raftport 9004 -node node11 -joinaddr 127.0.0.1:8001" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Emiliaab/gedis" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="slave node12" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="gedis" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="-httpport 8005 -raftport 9005 -node node12 -joinaddr 127.0.0.1:8001 " />
+      <kind value="PACKAGE" />
+      <package value="github.com/Emiliaab/gedis" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="slave node21" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="gedis" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="-httpport 8006 -raftport 9006 -node node21 -joinaddr 127.0.0.1:8002 " />
+      <kind value="PACKAGE" />
+      <package value="github.com/Emiliaab/gedis" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="slave node22" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="gedis" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="-httpport 8007 -raftport 9007 -node node22 -joinaddr 127.0.0.1:8002" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Emiliaab/gedis" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="slave node31" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="gedis" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="-httpport 8008 -raftport 9008 -node node31 -joinaddr 127.0.0.1:8003" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Emiliaab/gedis" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <configuration name="slave node32" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="gedis" />
+      <working_directory value="$PROJECT_DIR$" />
+      <parameters value="-httpport 8009 -raftport 9009 -node node32 -joinaddr 127.0.0.1:8003" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Emiliaab/gedis" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="Go Build.master node1" />
+      <item itemvalue="Go Build.master node2" />
+      <item itemvalue="Go Build.master node3" />
+      <item itemvalue="Go Build.slave node11" />
+      <item itemvalue="Go Build.slave node12" />
+      <item itemvalue="Go Build.slave node21" />
+      <item itemvalue="Go Build.slave node22" />
+      <item itemvalue="Go Build.slave node31" />
+      <item itemvalue="Go Build.slave node32" />
+    </list>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/cache/cache_proxy.go</url>
+          <line>61</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/cache/cache.go</url>
+          <line>41</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/lru-k/lru-k.go</url>
+          <line>78</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/http.go</url>
+          <line>60</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/cache/cache_proxy.go</url>
+          <line>56</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/cache/cache_proxy.go</url>
+          <line>63</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/cache/cache_proxy.go</url>
+          <line>67</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

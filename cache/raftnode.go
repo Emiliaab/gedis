@@ -92,7 +92,7 @@ func NewRaftNode(opts *Options, proxy *Cache_proxy) (*RaftNodeInfo, error) {
 
 // joinRaftCluster joins a node to gedisraft cluster
 func JoinRaftCluster(opts *Options) error {
-	url := fmt.Sprintf("http://%s/join?peerAddress=%s", opts.joinAddress, opts.raftTCPAddress)
+	url := fmt.Sprintf("http://%s/join?peerAddress=%s", opts.JoinAddress, opts.raftTCPAddress)
 
 	resp, err := http.Get(url)
 	if err != nil {

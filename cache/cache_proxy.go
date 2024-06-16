@@ -53,27 +53,40 @@ func (c *Cache_proxy) checkWritePermission() bool {
 	return atomic.LoadInt32(&c.enableWrite) == ENABLE_WRITE_TRUE
 }
 
-func (c *Cache_proxy) DoGet(key string) ([]byte, bool) {
+func (c *Cache_proxy) DoGet(key string, masterAddress string) ([]byte, bool) {
 	if key == "" {
 		log.Println("doGet() error, get nil key")
 		return nil, false
 	}
 
 	value, ok := c.Cache.Get(key)
-	// 如果本地缓存没有，用一致性hash算法去别的节点找
+	// 如果本地缓存没有，先给主节点发请求，然后如果自己就是主节点的话，就用一致性哈希算法找到应该查找的节点
 	if !ok {
-		peerAddress := c.Peers.Get(key)
-		if peerAddress == c.Opts.HttpAddress {
-			log.Println("doGet() error, get false ok")
-			return nil, false
+		// 如果masterAddress为空，说明自己就是主节点
+		if masterAddress == "" {
+			// 直接通过一致性hash算法找到应该查找的节点
+			peerAddress := c.Peers.Get(key)
+			if peerAddress == c.Opts.HttpAddress {
+				value, ok = c.Cache.Get(key)
+			} else {
+				res, err := GetFromPeer(peerAddress, key)
+				if err != nil {
+					log.Printf("GetFromPeer failed, err:%v", err)
+					return nil, false
+				}
+				value = res
+				ok = true
+			}
+		} else {
+			res, err := GetFromPeer(masterAddress, key)
+			if err != nil {
+				log.Printf("GetFromPeer failed, err:%v", err)
+				return nil, false
+			}
+			value = res
+			ok = true
+
 		}
-		// 从别的节点获取数据
-		ret, err := GetFromPeer(peerAddress, key)
-		if err != nil {
-			log.Printf("GetFromPeer failed, err:%v", err)
-			return nil, false
-		}
-		return ret, true
 
 	}
 	return value, ok

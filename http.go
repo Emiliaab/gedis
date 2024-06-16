@@ -53,8 +53,10 @@ func (h *httpServer) doGet(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprint(w, "")
 		return
 	}
+	// 判断是否是主节点，不是的话获取主节点的地址
+	masterAddress := h.cache.Opts.JoinAddress
 
-	ret, ok := h.cache.DoGet(key)
+	ret, ok := h.cache.DoGet(key, masterAddress)
 	if !ok {
 		h.log.Println("doGet() error, get false ok")
 		fmt.Fprint(w, "")
