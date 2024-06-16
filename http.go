@@ -134,8 +134,6 @@ func (h *httpServer) doJoin(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Println("=======")
-	fmt.Println(peerAddress)
 	addPeerFuture := h.cache.Raft.Raft.AddVoter(raft.ServerID(peerAddress), raft.ServerAddress(peerAddress), 0, 0)
 	if err := addPeerFuture.Error(); err != nil {
 		h.log.Printf("Error joining peer to raft, peeraddress:%s, err:%v, code:%d", peerAddress, err, http.StatusInternalServerError)
@@ -212,7 +210,6 @@ func (h *httpServer) sendPeers(w http.ResponseWriter, r *http.Request) {
 	//for k, v := range h.cache.Peers.HashMap {
 	//	fmt.Printf("%d -> %s\n", k, v)
 	//}
-	fmt.Println("11111")
 	// peers中加入自己，并向peers中其他节点都通知加入自己
 	h.cache.Peers.Add(h.cache.Opts.HttpAddress)
 	//fmt.Println(h.cache.Peers)
@@ -221,7 +218,6 @@ func (h *httpServer) sendPeers(w http.ResponseWriter, r *http.Request) {
 	//}
 
 	peerset := h.cache.Peers.GetPeers()
-	fmt.Println(peerset)
 	for _, peer := range peerset {
 		if peer == h.cache.Opts.HttpAddress {
 			continue
@@ -254,7 +250,7 @@ func (h *httpServer) sendPeers(w http.ResponseWriter, r *http.Request) {
 	// 返回响应
 	w.WriteHeader(http.StatusOK)
 	fmt.Fprint(w, "Peers updated successfully")
-	log.Println(h.cache.Peers.GetPeers())
+	log.Printf("当前node: %s 的一致性hash map所包含的peers有: %s", h.cache.Opts.HttpAddress, h.cache.Peers.GetPeers())
 }
 
 func (h *httpServer) addPeer(w http.ResponseWriter, r *http.Request) {
@@ -270,5 +266,5 @@ func (h *httpServer) addPeer(w http.ResponseWriter, r *http.Request) {
 	h.cache.Peers.Add(peerAddress)
 	log.Printf("%s addPeer %s success!", h.cache.Opts.HttpAddress, peerAddress)
 	fmt.Fprintf(w, "%s addPeer %s success!", h.cache.Opts.HttpAddress, peerAddress)
-	log.Println(h.cache.Peers.GetPeers())
+	log.Printf("当前node: %s 的一致性hash map所包含的peers有: %s", h.cache.Opts.HttpAddress, h.cache.Peers.GetPeers())
 }
