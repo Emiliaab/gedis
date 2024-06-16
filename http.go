@@ -210,7 +210,6 @@ func (h *httpServer) sendPeers(w http.ResponseWriter, r *http.Request) {
 	//for k, v := range h.cache.Peers.HashMap {
 	//	fmt.Printf("%d -> %s\n", k, v)
 	//}
-	fmt.Println("11111")
 	// peers中加入自己，并向peers中其他节点都通知加入自己
 	h.cache.Peers.Add(h.cache.Opts.HttpAddress)
 	//fmt.Println(h.cache.Peers)
@@ -219,7 +218,6 @@ func (h *httpServer) sendPeers(w http.ResponseWriter, r *http.Request) {
 	//}
 
 	peerset := h.cache.Peers.GetPeers()
-	fmt.Println(peerset)
 	for _, peer := range peerset {
 		if peer == h.cache.Opts.HttpAddress {
 			continue
