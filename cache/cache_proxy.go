@@ -98,6 +98,8 @@ func (c *Cache_proxy) DoGet(key string, masterAddress string) ([]byte, bool) {
 }
 
 func GetFromPeer(address string, key string) (res []byte, err error) {
+	// 输出日志，表示一次网络请求
+	log.Printf("发起网络请求:%s\n", key)
 	url := "http://" + address + "/get?key=" + key
 	resp, err := http.Get(url)
 	if err != nil {
