@@ -41,7 +41,7 @@ func NewCacheProxy(httpPort int32, raftPort int32, node string, bootstrap bool, 
 	proxy.Opts = opts
 	proxy.Log = log
 	proxy.Raft = raftNode
-	proxy.Cache = Cache{}
+	proxy.Cache = NewCache()
 	proxy.enableWrite = ENABLE_WRITE_FALSE
 	proxy.Peers = consistenthash.New(3, func(key []byte) uint32 {
 		return uint32(murmur3.Sum64(key))
