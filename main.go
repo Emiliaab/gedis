@@ -44,10 +44,16 @@ func main() {
 			if leader {
 				proxy.Log.Println("become leader, enable write api")
 				proxy.SetWriteFlag(true)
+				// 只有raft group中的leader node开启与数据库的写回策略
+				go func() {
+					proxy.Cache.FlushDirtyKeys()
+				}()
 			} else {
 				proxy.Log.Println("become follower, close write api")
 				proxy.SetWriteFlag(false)
+				proxy.Cache.Close()
 			}
 		}
 	}
+
 }

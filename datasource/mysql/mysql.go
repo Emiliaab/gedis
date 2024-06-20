@@ -19,6 +19,6 @@ func New() *gorm.DB {
 
 // 表的结构
 type Data struct {
-	Key   string `gorm:"column:key"`
-	Value string `gorm:"column:value"`
+	Key   string `gorm:"column:gedis_key"`
+	Value string `gorm:"column:gedis_value"`
 }
