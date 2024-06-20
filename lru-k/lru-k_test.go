@@ -10,6 +10,9 @@ type String string
 func (d String) Len() int {
 	return len(d)
 }
+func (d String) GetBytes() []byte {
+	return []byte(d)
+}
 
 func TestGet(t *testing.T) {
 	lru := NewCache(10, int64(100))

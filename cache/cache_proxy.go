@@ -162,3 +162,21 @@ func (c *Cache_proxy) DoJoin(peerAddress string) bool {
 	}
 	return true
 }
+
+func (c *Cache_proxy) GetRangeData(start, end int) ([]byte, error) {
+	// 首先，我们需要从缓存中获取范围内的所有键的数据
+	data, err := c.Cache.GetRangeData(start, end)
+	if err != nil {
+		c.Log.Printf("Error retrieving data from cache: %v", err)
+		return nil, err
+	}
+
+	// 将数据序列化为JSON格式以便传输
+	jsonData, err := json.Marshal(data)
+	if err != nil {
+		c.Log.Printf("Error marshaling data: %v", err)
+		return nil, err
+	}
+
+	return jsonData, nil
+}

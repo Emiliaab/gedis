@@ -2,7 +2,9 @@ package lru_k
 
 import (
 	"container/list"
+	"encoding/json"
 	"fmt"
+	"strconv"
 )
 
 type Cache interface {
@@ -15,6 +17,7 @@ type Cache interface {
 	BytesUsed() int64
 	GetData() map[string]*list.Element
 	SetData(map[string]*list.Element)
+	GetRangeData(start, end int) ([]byte, error)
 }
 
 type cache struct {
@@ -34,6 +37,7 @@ type cache struct {
 
 type gValue interface {
 	Len() int
+	GetBytes() []byte
 }
 
 type Entry struct {
@@ -240,4 +244,40 @@ func (c *cache) GetData() map[string]*list.Element {
 
 func (c *cache) SetData(data map[string]*list.Element) {
 	c.activeMap = data
+}
+
+func (c *cache) GetRangeData(start, end int) ([]byte, error) {
+	if c.isNil() {
+		return nil, fmt.Errorf("Cache not initialized")
+	}
+
+	result := make([]map[string][]byte, 0)
+
+	// Helper function to process lists
+	processList := func(list *list.List) {
+		for e := list.Front(); e != nil; e = e.Next() {
+			entry := e.Value.(*Entry)
+			keyInt, err := strconv.Atoi(entry.k)
+			if err != nil {
+				continue // Skip keys that cannot be converted to integers
+			}
+			if keyInt >= start && keyInt <= end {
+				data := entry.v.(gValue).GetBytes()
+				result = append(result, map[string][]byte{entry.k: data})
+				c.Remove(entry.k)
+			}
+		}
+	}
+
+	// Process both active and inactive lists
+	processList(c.activeList)
+	processList(c.inactiveList)
+
+	// Serialize the result into JSON
+	jsonData, err := json.Marshal(result)
+	if err != nil {
+		return nil, fmt.Errorf("Error marshaling data: %v", err)
+	}
+
+	return jsonData, nil
 }

@@ -1,8 +1,8 @@
 package cache
 
 import (
-	"container/list"
 	"encoding/json"
+	"fmt"
 	lru_k "github.com/Emiliaab/gedis/lru-k"
 	"io"
 	"sync"
@@ -67,15 +67,25 @@ func (c *Cache) Marshal() ([]byte, error) {
 
 func (c *Cache) UnMarshal(serialized io.ReadCloser) error {
 	//var newData map[string]string
-	var newData map[string]*list.Element
-	if err := json.NewDecoder(serialized).Decode(&newData); err != nil {
-		return err
-	}
+	//var newData map[string]*list.Element
+	//if err := json.NewDecoder(serialized).Decode(&newData); err != nil {
+	//	return err
+	//}
+	//c.mutex.Lock()
+	//defer c.mutex.Unlock()
+	//
+	//c.lru.SetData(newData)
+	return nil
+}
+
+func (c *Cache) GetRangeData(start, end int) ([]byte, error) {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
 
-	c.lru.SetData(newData)
-	return nil
+	if c.lru != nil {
+		return c.lru.GetRangeData(start, end)
+	}
+	return nil, fmt.Errorf("LRU cache is not initialized")
 }
 
 type gvalue struct {

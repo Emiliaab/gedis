@@ -13,6 +13,7 @@ import (
 	"net/http"
 	"os"
 	"strconv"
+	"time"
 )
 
 type httpServer struct {
@@ -40,6 +41,7 @@ func NewHttpServer(cache *cache.Cache_proxy) *httpServer {
 	mutex.HandleFunc("/sharepeers", s.sharePeers)
 	mutex.HandleFunc("/sendpeers", s.sendPeers)
 	mutex.HandleFunc("/addpeer", s.addPeer)
+	mutex.HandleFunc("/getrange", s.doGetRange)
 
 	return s
 }
@@ -206,17 +208,16 @@ func (h *httpServer) sendPeers(w http.ResponseWriter, r *http.Request) {
 	}
 
 	h.cache.Peers = &data
-	//fmt.Println(h.cache.Peers)
-	//for k, v := range h.cache.Peers.HashMap {
-	//	fmt.Printf("%d -> %s\n", k, v)
-	//}
+	// 获取 h.cache.Peers.Keys 的副本
+	keys := make([]int, len(h.cache.Peers.Keys))
+	copy(keys, h.cache.Peers.Keys)
+
 	// peers中加入自己，并向peers中其他节点都通知加入自己
 	h.cache.Peers.Add(h.cache.Opts.HttpAddress)
-	//fmt.Println(h.cache.Peers)
-	//for k, v := range h.cache.Peers.HashMap {
-	//	fmt.Printf("%d -> %s\n", k, v)
-	//}
-
+	// 得到数据迁移的区间以及数据来源节点名称
+	getRange := h.cache.Peers.GetRange(h.cache.Opts.HttpAddress, keys)
+	// 数据迁移
+	h.dataMigration(getRange)
 	peerset := h.cache.Peers.GetPeers()
 	for _, peer := range peerset {
 		if peer == h.cache.Opts.HttpAddress {
@@ -267,4 +268,103 @@ func (h *httpServer) addPeer(w http.ResponseWriter, r *http.Request) {
 	log.Printf("%s addPeer %s success!", h.cache.Opts.HttpAddress, peerAddress)
 	fmt.Fprintf(w, "%s addPeer %s success!", h.cache.Opts.HttpAddress, peerAddress)
 	log.Printf("当前node: %s 的一致性hash map所包含的peers有: %s", h.cache.Opts.HttpAddress, h.cache.Peers.GetPeers())
+}
+
+// doGetRange 处理范围请求，返回start和end之间的数据
+func (h *httpServer) doGetRange(w http.ResponseWriter, r *http.Request) {
+	vars := r.URL.Query()
+
+	startStr := vars.Get("start")
+	endStr := vars.Get("end")
+	if startStr == "" || endStr == "" {
+		h.log.Println("doGetRange() error, start or end parameter is missing")
+		http.Error(w, "Missing start or end parameter", http.StatusBadRequest)
+		return
+	}
+
+	start, err := strconv.Atoi(startStr)
+	if err != nil {
+		h.log.Printf("doGetRange() error, invalid start parameter: %v", err)
+		http.Error(w, "Invalid start parameter", http.StatusBadRequest)
+		return
+	}
+
+	end, err := strconv.Atoi(endStr)
+	if err != nil {
+		h.log.Printf("doGetRange() error, invalid end parameter: %v", err)
+		http.Error(w, "Invalid end parameter", http.StatusBadRequest)
+		return
+	}
+
+	// 获取数据
+	jsonData, err := h.cache.GetRangeData(start, end)
+	if err != nil {
+		h.log.Printf("Error retrieving range data: %v", err)
+		http.Error(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
+
+	if err != nil {
+		h.log.Printf("Error marshaling data: %v", err)
+		http.Error(w, "Error marshaling data", http.StatusInternalServerError)
+		return
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.Write(jsonData)
+}
+
+// 根据数据迁移的区间以及数据来源节点名称进行数据迁移
+func (h *httpServer) dataMigration(getRange []consistenthash.RangeNode) {
+	for _, rangeNode := range getRange {
+		// 从数据来源节点获取数据
+		jsonData, err := getDataFromPeer(rangeNode.Start, rangeNode.End, rangeNode.RealNode)
+		if err != nil {
+			h.log.Printf("getDataFromPeer failed, err: %v", err)
+			continue
+		}
+		log.Printf("Raw data received: %s", jsonData)
+		// 反序列化数据
+		var dataMap map[string]string
+		err = json.Unmarshal([]byte(jsonData), &dataMap)
+		if err != nil {
+			h.log.Printf("Error unmarshaling data from peer: %v", err)
+			continue
+		}
+
+		// 逐项应用数据
+		for key, value := range dataMap {
+			event := cache.LogEntryData{Oper: 1, Key: key, Value: value} // 假设 Oper: 1 表示设置操作
+			eventBytes, err := json.Marshal(event)
+			if err != nil {
+				h.log.Printf("json.Marshal failed, err:%v", err)
+				continue
+			}
+
+			applyFuture := h.cache.Raft.Raft.Apply(eventBytes, 5*time.Second)
+			if err := applyFuture.Error(); err != nil {
+				h.log.Printf("raft.Apply failed:%v", err)
+				continue
+			}
+		}
+	}
+}
+
+// 调用readnode的doGetRange请求获得数据
+func getDataFromPeer(start, end int, peerAddress string) ([]byte, error) {
+	url := fmt.Sprintf("http://%s/getrange?start=%d&end=%d", peerAddress, start, end)
+	resp, err := http.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", data)
+	// 序列化data
+	json.Marshal(data)
+	return data, nil
 }
