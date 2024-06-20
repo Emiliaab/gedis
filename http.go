@@ -304,12 +304,6 @@ func (h *httpServer) doGetRange(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	if err != nil {
-		h.log.Printf("Error marshaling data: %v", err)
-		http.Error(w, "Error marshaling data", http.StatusInternalServerError)
-		return
-	}
-
 	w.Header().Set("Content-Type", "application/json")
 	w.Write(jsonData)
 }
@@ -363,8 +357,7 @@ func getDataFromPeer(start, end int, peerAddress string) ([]byte, error) {
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", data)
+	//fmt.Println("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!", data)
 	// 序列化data
-	json.Marshal(data)
 	return data, nil
 }

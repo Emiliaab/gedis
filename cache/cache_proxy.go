@@ -172,11 +172,10 @@ func (c *Cache_proxy) GetRangeData(start, end int) ([]byte, error) {
 	}
 
 	// 将数据序列化为JSON格式以便传输
-	jsonData, err := json.Marshal(data)
 	if err != nil {
 		c.Log.Printf("Error marshaling data: %v", err)
 		return nil, err
 	}
 
-	return jsonData, nil
+	return data, nil
 }

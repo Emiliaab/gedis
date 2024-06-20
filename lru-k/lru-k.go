@@ -4,8 +4,10 @@ import (
 	"container/list"
 	"encoding/json"
 	"fmt"
-	"strconv"
+	"hash/crc32"
 )
+
+type Hash func(data []byte) uint32
 
 type Cache interface {
 	Get(k string) (v gValue, ok bool)
@@ -251,19 +253,18 @@ func (c *cache) GetRangeData(start, end int) ([]byte, error) {
 		return nil, fmt.Errorf("Cache not initialized")
 	}
 
-	result := make([]map[string][]byte, 0)
+	var hash Hash = crc32.ChecksumIEEE
+
+	result := make(map[string]string)
 
 	// Helper function to process lists
 	processList := func(list *list.List) {
 		for e := list.Front(); e != nil; e = e.Next() {
 			entry := e.Value.(*Entry)
-			keyInt, err := strconv.Atoi(entry.k)
-			if err != nil {
-				continue // Skip keys that cannot be converted to integers
-			}
+			keyInt := int(hash([]byte(entry.k)))
 			if keyInt >= start && keyInt <= end {
 				data := entry.v.(gValue).GetBytes()
-				result = append(result, map[string][]byte{entry.k: data})
+				result[entry.k] = string(data)
 				c.Remove(entry.k)
 			}
 		}
