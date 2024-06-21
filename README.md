@@ -24,7 +24,7 @@
 
 **项目架构**：我们的项目意在实现Multi-Raft架构，同时也参考了很多互联网和工业界的优秀资源，遗憾的是，介于课设的期限（2 weeks）原因，在实现不同Raft Group的集群分片管理时没有使用工业界常用的The Shard Controller分片控制器，而是基于大量的网络通信来完成的，这势必会带来操作的一些操作的不可靠和大量的网络开销。如果有对Multi-Raft更高一致性要求的实现的学习需求，可以参考MIT 6.5840 Lab4或者TiDB中的PD组件的实现。
 
-![gedis架构](.\assets\gedis架构.png)
+![gedis架构](https://github.com/Emiliaab/gedis/raw/main/assets/gedis架构.png)
 
 **功能模块**：该项目实现的主要功能模块主要可包括以下几个：
 
@@ -71,7 +71,7 @@ Raft 算法是一种分布式一致性算法,用于在分布式系统中维护�
 
 当一个现有的集群中加入新的节点，不光要有peers一致性Hash环的同步，还需要完成原来集群的数据迁移被一致性Hash分出来的那块迁移到新的节点。而这一步操作关键在于确定哪部分数据需要迁移，而由于为了解决一致性Hash的数据倾斜，所以要迁移的数据在环上可能分为多个片段。这又衍生出了新的困难，比如区间之间的重叠，以及新加入的两个虚拟节点相邻的情况。
 
-![gedis扩容数据迁移](https://github.com/Emiliaab/gedis/raw/main/assets/gedis一致性hash同步peers.png)
+![gedis扩容数据迁移](https://github.com/Emiliaab/gedis/raw/main/assets/gedis扩容数据迁移.png)
 
 最容易的想法是这样，以新插入的节点的Hash值作为end，在哈希环它前面的节点的Hash值+1作为start，这个虚拟节点这一段要迁移过来的数据就是从start-end范围的数据。而要从哪个节点要数据，在上面这幅图中很直观的看出来，应该是当前虚拟节点（Node31）的下一个Node，也就是从Node1要数据。
 
