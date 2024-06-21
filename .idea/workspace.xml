@@ -4,11 +4,11 @@
     <option name="autoReloadType" value="ALL" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="289014e2-8642-4ad6-ae96-c79b6dc5a69a" name="Changes" comment="cxn feat: peers change data success!">
+    <list default="true" id="289014e2-8642-4ad6-ae96-c79b6dc5a69a" name="Changes" comment="merge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cache/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/cache.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/cache/cache_proxy.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/cache_proxy.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/consistenthash/consistenthash.go" beforeDir="false" afterPath="$PROJECT_DIR$/consistenthash/consistenthash.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/datasource/mysql/mysql.go" beforeDir="false" afterPath="$PROJECT_DIR$/datasource/mysql/mysql.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/http.go" beforeDir="false" afterPath="$PROJECT_DIR$/http.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lru-k/lru-k.go" beforeDir="false" afterPath="$PROJECT_DIR$/lru-k/lru-k.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lru-k/lru-k_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/lru-k/lru-k_test.go" afterDir="false" />
@@ -53,7 +53,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
-  <component name="RunManager" selected="Go Build.master node4">
+  <component name="RunManager" selected="Go Build.slave node12">
     <configuration name="master node1" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="gedis" />
       <working_directory value="$PROJECT_DIR$" />
@@ -154,6 +154,18 @@
       <filePath value="$PROJECT_DIR$" />
       <method v="2" />
     </configuration>
+    <configuration name="TestRemove in github.com/Emiliaab/gedis/lru-k" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
+      <module name="gedis" />
+      <working_directory value="$PROJECT_DIR$/lru-k" />
+      <root_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/Emiliaab/gedis/lru-k" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
+      <pattern value="^\QTestRemove\E$" />
+      <method v="2" />
+    </configuration>
     <list>
       <item itemvalue="Go Build.master node1" />
       <item itemvalue="Go Build.master node2" />
@@ -165,7 +177,13 @@
       <item itemvalue="Go Build.slave node31" />
       <item itemvalue="Go Build.slave node32" />
       <item itemvalue="Go Build.master node4" />
+      <item itemvalue="Go Test.TestRemove in github.com/Emiliaab/gedis/lru-k" />
     </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Test.TestRemove in github.com/Emiliaab/gedis/lru-k" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
@@ -184,7 +202,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="cxn feat: peers change data success!" />
-    <option name="LAST_COMMIT_MESSAGE" value="cxn feat: peers change data success!" />
+    <MESSAGE value="merge" />
+    <option name="LAST_COMMIT_MESSAGE" value="merge" />
   </component>
   <component name="VgoProject">
     <settings-migrated>true</settings-migrated>
@@ -199,7 +218,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/http.go</url>
-          <line>219</line>
+          <line>225</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
@@ -219,8 +238,48 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="DlvLineBreakpoint">
           <url>file://$PROJECT_DIR$/http.go</url>
-          <line>299</line>
+          <line>305</line>
           <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/http.go</url>
+          <line>193</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/http.go</url>
+          <line>163</line>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/http.go</url>
+          <line>171</line>
+          <option name="timeStamp" value="13" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/http.go</url>
+          <line>190</line>
+          <option name="timeStamp" value="14" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/http.go</url>
+          <line>320</line>
+          <option name="timeStamp" value="16" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/lru-k/lru-k.go</url>
+          <line>260</line>
+          <option name="timeStamp" value="17" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/lru-k/lru-k.go</url>
+          <line>265</line>
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/consistenthash/consistenthash.go</url>
+          <line>52</line>
+          <option name="timeStamp" value="19" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

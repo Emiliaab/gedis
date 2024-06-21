@@ -4,7 +4,7 @@ import (
 	"container/list"
 	"encoding/json"
 	"fmt"
-	"hash/crc32"
+	"github.com/spaolacci/murmur3"
 )
 
 type Hash func(data []byte) uint32
@@ -20,6 +20,7 @@ type Cache interface {
 	GetData() map[string]*list.Element
 	SetData(map[string]*list.Element)
 	GetRangeData(start, end int) ([]byte, error)
+	GetAll() map[string]gValue
 }
 
 type cache struct {
@@ -253,7 +254,9 @@ func (c *cache) GetRangeData(start, end int) ([]byte, error) {
 		return nil, fmt.Errorf("Cache not initialized")
 	}
 
-	var hash Hash = crc32.ChecksumIEEE
+	var hash Hash = func(key []byte) uint32 {
+		return uint32(murmur3.Sum64(key))
+	}
 
 	result := make(map[string]string)
 
@@ -281,4 +284,26 @@ func (c *cache) GetRangeData(start, end int) ([]byte, error) {
 	}
 
 	return jsonData, nil
+}
+
+func (c *cache) GetAll() map[string]gValue {
+	if c.isNil() {
+		return nil
+	}
+
+	result := make(map[string]gValue)
+
+	// Helper function to process lists
+	processList := func(list *list.List) {
+		for e := list.Front(); e != nil; e = e.Next() {
+			entry := e.Value.(*Entry)
+			result[entry.k] = entry.v
+		}
+	}
+
+	// Process both active and inactive lists
+	processList(c.activeList)
+	processList(c.inactiveList)
+
+	return result
 }

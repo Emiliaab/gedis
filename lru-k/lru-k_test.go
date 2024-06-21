@@ -83,3 +83,14 @@ func TestAdd(t *testing.T) {
 		t.Fatal("expected 6 but got", lru.BytesUsed())
 	}
 }
+
+func TestRemove(t *testing.T) {
+	// 测试remove函数
+	lru := NewCache(2, int64(6))
+	lru.Set("key", String("1"))
+	lru.Remove("key")
+	if _, ok := lru.Get("key"); ok {
+		t.Fatal("expected key to be removed")
+	}
+
+}

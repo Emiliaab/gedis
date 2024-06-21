@@ -42,6 +42,7 @@ func NewHttpServer(cache *cache.Cache_proxy) *httpServer {
 	mutex.HandleFunc("/sendpeers", s.sendPeers)
 	mutex.HandleFunc("/addpeer", s.addPeer)
 	mutex.HandleFunc("/getrange", s.doGetRange)
+	mutex.HandleFunc("/getall", s.getAll)
 
 	return s
 }
@@ -63,6 +64,11 @@ func (h *httpServer) doGet(w http.ResponseWriter, r *http.Request) {
 		h.log.Println("doGet() error, get false ok")
 		fmt.Fprint(w, "")
 	}
+	fmt.Fprintf(w, "%s\n", ret)
+}
+
+func (h *httpServer) getAll(w http.ResponseWriter, r *http.Request) {
+	ret := h.cache.GetAll()
 	fmt.Fprintf(w, "%s\n", ret)
 }
 

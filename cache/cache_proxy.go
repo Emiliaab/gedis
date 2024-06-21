@@ -117,6 +117,9 @@ func GetFromPeer(address string, key string) (res []byte, err error) {
 	return res, nil
 }
 
+func (c *Cache_proxy) GetAll() map[string]string {
+	return c.Cache.GetAll()
+}
 func (c *Cache_proxy) SetWriteFlag(flag bool) {
 	if flag {
 		atomic.StoreInt32(&c.enableWrite, ENABLE_WRITE_TRUE)

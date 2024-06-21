@@ -72,6 +72,21 @@ func (c *Cache) Get(key string) (value []byte, ok bool) {
 	return
 }
 
+func (c *Cache) GetAll() map[string]string {
+	c.mutex.Lock()
+	defer c.mutex.Unlock()
+
+	if c.lru == nil {
+		return nil
+	}
+	ans := make(map[string]string)
+	for k, v := range c.lru.GetAll() {
+		ans[k] = string(v.(*gvalue).GetBytes())
+
+	}
+	return ans
+}
+
 func (c *Cache) Remove(key string) (ok bool) {
 	c.mutex.Lock()
 	defer c.mutex.Unlock()
