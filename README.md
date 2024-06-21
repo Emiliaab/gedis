@@ -55,7 +55,7 @@ Raft 算法是一种分布式一致性算法,用于在分布式系统中维护�
 
 我们知道一致性Hash算法将节点和数据都放在一个环上，这样有利于对一个新加入的节点进行动态地扩容。但是，对于新加入的节点，需要让它的加入被现有集群其他节点感知，即对于集群所有节点的一致性Hash环需要被同步，在当前没有shard controller的情况下需要通过网络通信做到。具体的时序图如下：
 
-![gedis一致性hash同步peers](.\assets\gedis一致性hash同步peers.png)
+![gedis一致性hash同步peers](https://github.com/Emiliaab/gedis/raw/main/assets/gedis一致性hash同步peers.png)
 
 上图中Master Node1和Master Node2是一个现有的peers同步的Master节点集群，Master Node3是新加入的节点。首先用户发送sharePeers请求给现有集群的任意一个节点，这里假设为Node1节点，让它向Master Node3同步当前的Peers数据结构。Node3接收到的Peers是未加入自己的一致性Hash环，现在Node3将自己加入到Peers一致性Hash环中，此时原来的集群尚未感知到Node3，于是Node3仍然需要向原有Peers，即Node1和Node2发送请求，并让它们都将Node3更新到一致性Hash环中。
 
@@ -71,7 +71,7 @@ Raft 算法是一种分布式一致性算法,用于在分布式系统中维护�
 
 当一个现有的集群中加入新的节点，不光要有peers一致性Hash环的同步，还需要完成原来集群的数据迁移被一致性Hash分出来的那块迁移到新的节点。而这一步操作关键在于确定哪部分数据需要迁移，而由于为了解决一致性Hash的数据倾斜，所以要迁移的数据在环上可能分为多个片段。这又衍生出了新的困难，比如区间之间的重叠，以及新加入的两个虚拟节点相邻的情况。
 
-![gedis扩容数据迁移](.\assets\gedis扩容数据迁移.png)
+![gedis扩容数据迁移](https://github.com/Emiliaab/gedis/raw/main/assets/gedis一致性hash同步peers.png)
 
 最容易的想法是这样，以新插入的节点的Hash值作为end，在哈希环它前面的节点的Hash值+1作为start，这个虚拟节点这一段要迁移过来的数据就是从start-end范围的数据。而要从哪个节点要数据，在上面这幅图中很直观的看出来，应该是当前虚拟节点（Node31）的下一个Node，也就是从Node1要数据。
 
@@ -167,7 +167,7 @@ http://127.0.0.1:8010/getall    // {test: test}
 
 采用JMeter压测工具高并发环境下读请求同一个key，下图是测试结果
 
-![gedis高并发读](.\assets\gedis高并发读.png)
+![gedis高并发读](https://github.com/Emiliaab/gedis/raw/main/assets/gedis高并发读.png)
 
 可以看出来，后面的请求由于都使用了前面的返回值，所以请求的相应数在1s之后趋于个位数
 
