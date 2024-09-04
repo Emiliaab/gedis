@@ -125,7 +125,7 @@ func (c *cache) Set(k string, v gValue) {
 		entry.v = v
 		c.nbytes += int64(v.Len()) // 加上新的字节大小
 		entry.cnt++
-		if entry.cnt >= 2 {
+		if entry.cnt >= c.k {
 			c.moveToRealCache(entry, e)
 		} else {
 			c.inactiveList.MoveToFront(e)

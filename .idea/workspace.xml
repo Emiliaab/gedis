@@ -6,12 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="289014e2-8642-4ad6-ae96-c79b6dc5a69a" name="Changes" comment="merge">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/cache.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/cache.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/cache/cache_proxy.go" beforeDir="false" afterPath="$PROJECT_DIR$/cache/cache_proxy.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/datasource/mysql/mysql.go" beforeDir="false" afterPath="$PROJECT_DIR$/datasource/mysql/mysql.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/http.go" beforeDir="false" afterPath="$PROJECT_DIR$/http.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lru-k/lru-k.go" beforeDir="false" afterPath="$PROJECT_DIR$/lru-k/lru-k.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lru-k/lru-k_test.go" beforeDir="false" afterPath="$PROJECT_DIR$/lru-k/lru-k_test.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,7 +48,7 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
 }</component>
-  <component name="RunManager" selected="Go Build.slave node12">
+  <component name="RunManager" selected="Go 构建.master node1">
     <configuration name="master node1" type="GoApplicationRunConfiguration" factoryName="Go Application">
       <module name="gedis" />
       <working_directory value="$PROJECT_DIR$" />
@@ -167,23 +162,18 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Go Build.master node1" />
-      <item itemvalue="Go Build.master node2" />
-      <item itemvalue="Go Build.master node3" />
-      <item itemvalue="Go Build.slave node11" />
-      <item itemvalue="Go Build.slave node12" />
-      <item itemvalue="Go Build.slave node21" />
-      <item itemvalue="Go Build.slave node22" />
-      <item itemvalue="Go Build.slave node31" />
-      <item itemvalue="Go Build.slave node32" />
-      <item itemvalue="Go Build.master node4" />
-      <item itemvalue="Go Test.TestRemove in github.com/Emiliaab/gedis/lru-k" />
+      <item itemvalue="Go 构建.master node1" />
+      <item itemvalue="Go 构建.master node2" />
+      <item itemvalue="Go 构建.master node3" />
+      <item itemvalue="Go 构建.master node4" />
+      <item itemvalue="Go 构建.slave node11" />
+      <item itemvalue="Go 构建.slave node12" />
+      <item itemvalue="Go 构建.slave node21" />
+      <item itemvalue="Go 构建.slave node22" />
+      <item itemvalue="Go 构建.slave node31" />
+      <item itemvalue="Go 构建.slave node32" />
+      <item itemvalue="Go 测试.TestRemove in github.com/Emiliaab/gedis/lru-k" />
     </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Go Test.TestRemove in github.com/Emiliaab/gedis/lru-k" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TypeScriptGeneratedFilesManager">
